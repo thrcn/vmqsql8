@@ -47,7 +47,7 @@ CREATE TABLE `tmp_price` (
   KEY `idx_tmp_price_oid` (`oid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `setting` (`vkey`, `vvalue`) VALUES
+INSERT IGNORE INTO `setting` (`vkey`, `vvalue`) VALUES
 ('user', 'admin'),
 ('pass', 'admin'),
 ('notifyUrl', ''),
@@ -59,5 +59,4 @@ INSERT INTO `setting` (`vkey`, `vvalue`) VALUES
 ('close', '5'),
 ('payQf', '1'),
 ('wxpay', ''),
-('zfbpay', '')
-ON DUPLICATE KEY UPDATE `vvalue` = VALUES(`vvalue`);
+('zfbpay', '');
