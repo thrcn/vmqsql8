@@ -6,6 +6,13 @@
 SET @old_foreign_key_checks := @@FOREIGN_KEY_CHECKS;
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Change the current database default without hard-coding the deployment database name.
+SET @vmq_db_name := DATABASE();
+SET @vmq_sql := CONCAT('ALTER DATABASE `', REPLACE(@vmq_db_name, '`', '``'), '` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci');
+PREPARE vmq_stmt FROM @vmq_sql;
+EXECUTE vmq_stmt;
+DEALLOCATE PREPARE vmq_stmt;
+
 ALTER TABLE `pay_order`
   ENGINE=InnoDB,
   CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
